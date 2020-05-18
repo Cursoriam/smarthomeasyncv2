@@ -1,4 +1,4 @@
-from src.subscribers import conditioner_subscribe
+from subscribers import conditioner_subscribe
 
 
 def init_subscriptions():
