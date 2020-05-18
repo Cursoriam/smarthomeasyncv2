@@ -5,6 +5,7 @@ from sqlite import init_sqlite
 from bootstrap import init_subscriptions
 from transports import setup_routes
 
+
 async def init() -> web.Application:
     app = web.Application()
     setup_routes(app)
