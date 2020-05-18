@@ -1,1 +1,1 @@
-web gunicorn main:init --worker-class aiohttp.GunicornWebWorker
+web gunicorn main:init --worker-class aiohttp.GunicornWebWorker -t 60
