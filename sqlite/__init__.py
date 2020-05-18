@@ -6,7 +6,7 @@ DB_NAME = 'SmartHome.db'
 
 TableSchema = """
 drop table if exists CONDITIONER_DATA ;
-create table CONDITIONER_DATA (
+create table if not exists CONDITIONER_DATA (
   id integer primary key autoincrement,
   ConditionerID text,
   Date_n_Time text,
