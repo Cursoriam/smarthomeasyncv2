@@ -1,1 +1,1 @@
-web: gunicorn main:main --timeout 90 --worker-class aiohttp.GunicornWebWorker
+web: gunicorn main --timeout 90 --worker-class aiohttp.GunicornWebWorker
