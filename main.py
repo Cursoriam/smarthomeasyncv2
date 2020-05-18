@@ -12,7 +12,7 @@ async def init() -> web.Application:
     app = web.Application()
     setup_routes(app)
     init_sqlite()
-    # init_subscriptions()
+    init_subscriptions()
     return app
 
 if __name__ == '__main__':
