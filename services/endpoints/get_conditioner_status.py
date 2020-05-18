@@ -1,7 +1,7 @@
 import sqlite3
 
 
-async def get_conditioner_status_data():
+async def get_conditioner_status_data(event):
     sqlite_connection = sqlite3.connect('SmartHome.db')
     cursor = sqlite_connection.cursor()
 
