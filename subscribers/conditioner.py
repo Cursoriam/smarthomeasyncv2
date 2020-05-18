@@ -10,7 +10,7 @@ MQTT_Topic = "Home/Conditioner/Status"
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        print("Connected OK")
+        # print("Connected OK")
         client.subscribe(MQTT_Topic)
     else:
         print("Bad connection, RC = ", rc)
