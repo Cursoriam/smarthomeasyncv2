@@ -1,4 +1,4 @@
-aiohttp==3.6.2
+aiohttp==3.5.0
 appdirs==1.4.4
 async-timeout==3.0.1
 attrs==19.3.0
@@ -15,4 +15,4 @@ regex==2020.5.7
 toml==0.10.0
 typed-ast==1.4.1
 yarl==1.4.2
-gunicorn
+gunicorn==20.0.4

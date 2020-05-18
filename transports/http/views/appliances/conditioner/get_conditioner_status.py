@@ -1,7 +1,6 @@
 import aiohttp
 from aiohttp import web
 
-
 from services.endpoints import get_conditioner_status_data
 
 
