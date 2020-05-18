@@ -1,3 +1,5 @@
+import os
+
 from aiohttp import web
 
 from sqlite import init_sqlite
@@ -14,5 +16,5 @@ async def init() -> web.Application:
     return app
 
 if __name__ == '__main__':
-    web.run_app(init(), port=8088)
+    web.run_app(init(), port=os.environ.get('PORT'))
 
