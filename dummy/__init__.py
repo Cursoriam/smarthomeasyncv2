@@ -49,7 +49,7 @@ def publish_Fake_Sensor_Values_to_MQTT():
     threading.Timer(3.0, publish_Fake_Sensor_Values_to_MQTT).start()
     global toggle
     if toggle == 0:
-        Conditioner_Fake_Status = 'ON' if bool(random.getrandbits(1)) else 'OFF'
+        Conditioner_Fake_Status = bool(random.getrandbits(1))
         Conditioner_Fake_Id = str(random.randrange(1, 3))
         Modes = ['Easy', 'Normal', 'Hard']
         Conditioner_Fake_Mode = Modes[random.randrange(0, 2)]

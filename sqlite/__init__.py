@@ -10,7 +10,7 @@ create table if not exists CONDITIONER_DATA (
   id integer primary key autoincrement,
   ConditionerID text,
   Date_n_Time text,
-  Status text,
+  Status boolean,
   Temperature integer,
   Mode text
 );
