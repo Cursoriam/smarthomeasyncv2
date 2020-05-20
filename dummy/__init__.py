@@ -49,13 +49,14 @@ def publish_Fake_Sensor_Values_to_MQTT():
     threading.Timer(3.0, publish_Fake_Sensor_Values_to_MQTT).start()
     global toggle
     if toggle == 0:
-        Humidity_Fake_Value = float("{0:.2f}".format(random.uniform(50, 100)))
+        Conditioner_Fake_Status = 'ON' if bool(random.getrandbits(1)) else 'OFF'
+        Conditioner_Fake_Id = str(random.randrange(1, 3))
 
-        Humidity_Data = {'ConditionerID': "Dummy-1", 'Date': (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f"),
-                         'Status': Humidity_Fake_Value}
+        Humidity_Data = {'ConditionerID': Conditioner_Fake_Id, 'Date': (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f"),
+                         'Status': Conditioner_Fake_Status}
         humidity_json_data = json.dumps(Humidity_Data)
 
-        print("Publishing fake Humidity Value: " + str(Humidity_Fake_Value) + "...")
+        print("Publishing fake Humidity Value: " + str(Conditioner_Fake_Status) + "...")
         publish_To_Topic(MQTT_Topic, humidity_json_data)
 
 
