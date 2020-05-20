@@ -53,7 +53,7 @@ def publish_Fake_Sensor_Values_to_MQTT():
         Conditioner_Fake_Id = str(random.randrange(1, 3))
         Modes = ['Easy', 'Normal', 'Hard']
         Conditioner_Fake_Mode = Modes[random.randrange(0, 2)]
-        if Conditioner_Fake_Status == 'OFF':
+        if not Conditioner_Fake_Status:
             Conditioner_Fake_Mode = 'Off'
         Conditioner_Fake_Temperature = random.randrange(-50, 50)
 
