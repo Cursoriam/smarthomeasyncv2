@@ -35,12 +35,14 @@ def conditioner_status_data_handler(jsonData):
     conditionerID = json_Dict['ConditionerID']
     date_and_time = json_Dict['Date']
     status = json_Dict['Status']
+    mode = json_Dict['Mode']
+    temperature = json_Dict['Temperature']
 
     # Push into DB Table
     dbObj = DatabaseManager()
     dbObj.add_del_update_db_record(
-        "insert into CONDITIONER_DATA (ConditionerID, Date_n_Time, Status) values (?,?,?)",
-        [conditionerID, date_and_time, status])
+        "insert into CONDITIONER_DATA (ConditionerID, Date_n_Time, Status, Temperature, Mode) values (?,?,?,?,?)",
+        [conditionerID, date_and_time, status, temperature, mode])
     del dbObj
     print("Inserted Temperature Data into Database.")
 
