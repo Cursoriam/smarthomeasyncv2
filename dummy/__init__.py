@@ -52,13 +52,13 @@ def publish_Fake_Sensor_Values_to_MQTT():
         Conditioner_Fake_Status = 'ON' if bool(random.getrandbits(1)) else 'OFF'
         Conditioner_Fake_Id = str(random.randrange(1, 3))
         Modes = ['Easy', 'Normal', 'Hard']
-        Connnnditioner_Fake_Mode = Modes[random.randrange(0, 2)]
+        Conditioner_Fake_Mode = Modes[random.randrange(0, 2)]
         if Conditioner_Fake_Status == 'OFF':
-            Connnnditioner_Fake_Mode = 'Off'
-        Conditioner_Fake_Temperature = str(random.randrange(-50, 50))
+            Conditioner_Fake_Mode = 'Off'
+        Conditioner_Fake_Temperature = random.randrange(-50, 50)
 
         Humidity_Data = {'ConditionerID': Conditioner_Fake_Id, 'Date': (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f"),
-                         'Status': Conditioner_Fake_Status, 'Temperature': Conditioner_Fake_Temperature, 'Mode': Connnnditioner_Fake_Mode}
+                         'Status': Conditioner_Fake_Status, 'Temperature': Conditioner_Fake_Temperature, 'Mode': Conditioner_Fake_Mode}
         humidity_json_data = json.dumps(Humidity_Data)
 
         print("Publishing fake Humidity Value: " + str(Conditioner_Fake_Status) + "...")

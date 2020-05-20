@@ -11,7 +11,7 @@ create table if not exists CONDITIONER_DATA (
   ConditionerID text,
   Date_n_Time text,
   Status text,
-  Temperature int,
+  Temperature integer,
   Mode text
 );
 """
