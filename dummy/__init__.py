@@ -55,7 +55,7 @@ def publish_Fake_Sensor_Values_to_MQTT():
         Connnnditioner_Fake_Mode = Modes[random.randrange(0, 2)]
         if Conditioner_Fake_Status == 'OFF':
             Connnnditioner_Fake_Mode = 'Off'
-        Conditioner_Fake_Temperature = random.randrange(-50, 50)
+        Conditioner_Fake_Temperature = str(random.randrange(-50, 50))
 
         Humidity_Data = {'ConditionerID': Conditioner_Fake_Id, 'Date': (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f"),
                          'Status': Conditioner_Fake_Status, 'Temperature': Conditioner_Fake_Temperature, 'Mode': Connnnditioner_Fake_Mode}
