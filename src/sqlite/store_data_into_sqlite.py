@@ -8,6 +8,7 @@ DB_Name = 'SmartHome.db'
 # ===============================================================
 # Database Manager Class
 
+
 class DatabaseManager:
     def __init__(self):
         self.conn = sqlite3.connect(DB_Name)
@@ -42,13 +43,15 @@ def conditioner_status_data_handler(jsonData):
     dbObj = DatabaseManager()
     dbObj.add_del_update_db_record(
         "insert into CONDITIONER_DATA (ConditionerID, Date_n_Time, Status, Temperature, Mode) values (?,?,?,?,?)",
-        [conditionerID, date_and_time, status, temperature, mode])
+        [conditionerID, date_and_time, status, temperature, mode],
+    )
     del dbObj
     print("Inserted Temperature Data into Database.")
 
 
 # ===============================================================
 # Master Function to Select DB Funtion based on MQTT Topic
+
 
 def conditioner_status_handler(Topic, jsonData):
     if Topic == "Home/Conditioner/Status":

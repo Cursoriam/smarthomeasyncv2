@@ -1,6 +1,7 @@
 import sqlite3
 
 from .store_data_into_sqlite import conditioner_status_handler
+
 DB_NAME = 'SmartHome.db'
 
 

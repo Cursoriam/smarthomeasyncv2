@@ -15,6 +15,6 @@ async def init() -> web.Application:
     init_subscriptions()
     return app
 
+
 if __name__ == '__main__':
     web.run_app(init(), port=os.environ.get('PORT'))
-
