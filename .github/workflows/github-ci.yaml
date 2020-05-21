@@ -18,7 +18,6 @@ jobs:
           architecture: 'x64'
       - name: Install requirements
         run: pip install -r requirements.txt
-      - name: Run linters
       - name: flake
         run: flake8 src/
       - name: pylint
