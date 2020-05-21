@@ -13,11 +13,10 @@ async def get_conditioner_status_data(conditioner_id: str) -> List:
     sqlite_connection = sqlite3.connect('SmartHome.db')
     cursor = sqlite_connection.cursor()
 
-    count = "SELECT count(*) FROM CONDITIONER_DATA"
+    count = "SELECT * FROM CONDITIONER_DATA"
     count_of_values = cursor.execute(count)
-
-    if not count_of_values:
-        await asyncio.sleep(3)
+    if not count_of_values.fetchall():
+        await asyncio.sleep(10)
 
     cursor.execute('SELECT name from sqlite_master where type= "table"')
 
