@@ -8,7 +8,14 @@ from src.bootstrap import init_subscriptions
 from src.transports import setup_routes
 
 
+PORT = int(os.environ.get('PORT', '8088'))
+
+
 async def init() -> web.Application:
+    """
+    Инициализация главного aiohttp application
+    :return: web.Application
+    """
     app = web.Application()
     setup_routes(app)
     init_sqlite()
@@ -17,4 +24,4 @@ async def init() -> web.Application:
 
 
 if __name__ == '__main__':
-    web.run_app(init(), port=os.environ.get('PORT'))
+    web.run_app(init(), port=PORT)

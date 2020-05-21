@@ -5,7 +5,7 @@ from .store_data_into_sqlite import conditioner_status_handler
 DB_NAME = 'SmartHome.db'
 
 
-TableSchema = """
+TABLE_SCHEMA = """
 drop table if exists CONDITIONER_DATA ;
 create table if not exists CONDITIONER_DATA (
   id integer primary key autoincrement,
@@ -18,12 +18,15 @@ create table if not exists CONDITIONER_DATA (
 """
 
 
-def init_sqlite():
+def init_sqlite() -> None:
+    """
+    Инициализация базы данных SQLite
+    """
     conn = sqlite3.connect(DB_NAME)
     curs = conn.cursor()
 
-    sqlite3.complete_statement(TableSchema)
-    curs.executescript(TableSchema)
+    sqlite3.complete_statement(TABLE_SCHEMA)
+    curs.executescript(TABLE_SCHEMA)
 
     curs.close()
     conn.close()

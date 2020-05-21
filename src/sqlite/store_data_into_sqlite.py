@@ -1,8 +1,11 @@
 import json
 import sqlite3
+from typing import List
+from typing import Tuple
+from typing import Union
 
 # SQLite DB Name
-DB_Name = 'SmartHome.db'
+DB_NAME = 'SmartHome.db'
 
 
 # ===============================================================
@@ -10,18 +13,26 @@ DB_Name = 'SmartHome.db'
 
 
 class DatabaseManager:
-    def __init__(self):
-        self.conn = sqlite3.connect(DB_Name)
+    """
+    Менеджер для управления базой данных
+    """
+    def __init__(self) -> None:
+        self.conn = sqlite3.connect(DB_NAME)
         self.conn.execute('pragma foreign_keys = on')
         self.conn.commit()
         self.cur = self.conn.cursor()
 
-    def add_del_update_db_record(self, sql_query, args=()):
+    def add_del_update_db_record(self, sql_query: str, args: Union[List, Tuple] = ()) -> None:
+        """
+        Метод для добавления изменений или удаления из базы данных
+        :param sql_query:
+        :param args:
+        :return:
+        """
         self.cur.execute(sql_query, args)
         self.conn.commit()
-        return
 
-    def __del__(self):
+    def __del__(self) -> None:
         self.cur.close()
         self.conn.close()
 
@@ -30,22 +41,26 @@ class DatabaseManager:
 # Functions to push Sensor Data into Database
 
 # Function to save Temperature to DB Table
-def conditioner_status_data_handler(jsonData):
+def conditioner_status_data_handler(json_data: str) -> None:
+    """
+    Метод для добавления данных кондиционера в соответствующую таблицу в базе данных
+    :param json_data: данные кондиционера
+    """
     # Parse Data
-    json_Dict = json.loads(jsonData)
-    conditionerID = json_Dict['ConditionerID']
-    date_and_time = json_Dict['Date']
-    status = json_Dict['Status']
-    mode = json_Dict['Mode']
-    temperature = json_Dict['Temperature']
+    json_dict = json.loads(json_data)
+    conditioner_id = json_dict['ConditionerID']
+    date_and_time = json_dict['Date']
+    status = json_dict['Status']
+    mode = json_dict['Mode']
+    temperature = json_dict['Temperature']
 
     # Push into DB Table
-    dbObj = DatabaseManager()
-    dbObj.add_del_update_db_record(
+    db_obj = DatabaseManager()
+    db_obj.add_del_update_db_record(
         "insert into CONDITIONER_DATA (ConditionerID, Date_n_Time, Status, Temperature, Mode) values (?,?,?,?,?)",
-        [conditionerID, date_and_time, status, temperature, mode],
+        [conditioner_id, date_and_time, status, temperature, mode],
     )
-    del dbObj
+    del db_obj
     print("Inserted Temperature Data into Database.")
 
 
@@ -53,6 +68,11 @@ def conditioner_status_data_handler(jsonData):
 # Master Function to Select DB Funtion based on MQTT Topic
 
 
-def conditioner_status_handler(Topic, jsonData):
-    if Topic == "Home/Conditioner/Status":
-        conditioner_status_data_handler(jsonData)
+def conditioner_status_handler(topic: str, json_data: str) -> None:
+    """
+    Метод для обработки поступающих данных от кондиционера
+    :param topic:
+    :param json_data:
+    """
+    if topic == "Home/Conditioner/Status":
+        conditioner_status_data_handler(json_data)
