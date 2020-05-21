@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from services.endpoints import get_conditioner_status_data
+from src.services.endpoints import get_conditioner_status_data
 
 
 async def get_conditioner_status(request: web.Request) -> web.Response:

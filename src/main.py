@@ -2,10 +2,10 @@ import os
 
 from aiohttp import web
 
-from sqlite import init_sqlite
+from src.sqlite import init_sqlite
 
-from bootstrap import init_subscriptions
-from transports import setup_routes
+from src.bootstrap import init_subscriptions
+from src.transports import setup_routes
 
 
 async def init() -> web.Application:
