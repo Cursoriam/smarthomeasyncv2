@@ -1,3 +1,3 @@
-from .conditioner import conditioner_subscribe
+from .conditioner import broker_subscribe
 
-__all__ = ['conditioner_subscribe']
+__all__ = ['broker_subscribe']

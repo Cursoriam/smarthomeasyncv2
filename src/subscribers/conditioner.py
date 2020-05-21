@@ -3,13 +3,13 @@ from typing import Any
 
 import paho.mqtt.client as mqttc
 
-from src.sqlite import conditioner_status_handler
+from src.sqlite import data_handler
 
 # MQTT Settings
 MQTT_BROKER = "test.mosquitto.org"
 MQTT_PORT = 1883
 KEEP_ALIVE_INTERVAL = 45
-MQTT_TOPIC = "Home/Conditioner/Status"
+MQTT_TOPIC = "Home/#"
 
 
 def on_connect(client: mqttc, userdata: Any, flags: Any, rc: int) -> None:
@@ -40,7 +40,7 @@ def on_message(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:
     print("MQTT Data Received...")
     print("MQTT Topic: " + msg.topic)
     print("Data" + str(msg.payload))
-    conditioner_status_handler(msg.topic, msg.payload)
+    data_handler(msg.topic, msg.payload)
 
 
 def assign_callbacks_to_client(client: mqttc) -> None:
@@ -52,12 +52,12 @@ def assign_callbacks_to_client(client: mqttc) -> None:
     client.on_message = on_message
 
 
-def conditioner_subscribe() -> None:
+def broker_subscribe() -> None:
     """
     Метод подписки на топик кондиционера
     """
-    sub_client_conditioner = mqttc.Client(client_id="clientgonnasubA")
-    if not sub_client_conditioner.is_connected():
-        sub_client_conditioner.connect_async(MQTT_BROKER, MQTT_PORT)
-        assign_callbacks_to_client(sub_client_conditioner)
-        sub_client_conditioner.loop_start()
+    sub_client = mqttc.Client(client_id="clientgonnasubA")
+    if not sub_client.is_connected():
+        sub_client.connect_async(MQTT_BROKER, MQTT_PORT)
+        assign_callbacks_to_client(sub_client)
+        sub_client.loop_start()
