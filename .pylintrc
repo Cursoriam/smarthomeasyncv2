@@ -1,0 +1,14 @@
+[MASTER]
+init-hook='import sys; sys.path.append("./src")'
+
+[MESSAGES CONTROL]
+disable=C0114,E1101,R0801,C0330
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+[DESIGN]
+max-args=10
+max-parents=17
