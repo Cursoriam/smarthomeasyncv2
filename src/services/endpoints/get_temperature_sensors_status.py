@@ -4,7 +4,7 @@ from typing import List
 import sqlite3
 
 
-async def get_conditioner_status_data(conditioner_id: str) -> List:
+async def get_temperature_sensors_status_data(conditioner_id: str) -> List:
     """
     Извлечение данных кондиционера из базы данных
     :param conditioner_id:
