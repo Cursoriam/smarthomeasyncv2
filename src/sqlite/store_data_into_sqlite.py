@@ -89,7 +89,7 @@ def light_data_handler(json_data: str) -> None:
 # Master Function to Select DB Funtion based on MQTT Topic
 
 
-def data_handler(topic: str, json_data: str) -> None:
+def data_handler(topic: str, json_data: str) -> None: #rewrite
     """
     Метод для обработки поступающих данных от кондиционера
     :param topic:

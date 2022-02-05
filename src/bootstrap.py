@@ -1,8 +1,8 @@
-from src.subscribers import broker_subscribe
+from src.subscribers import conditioner_subscribe
 
 
 def init_subscriptions() -> None:
     """
     Инициализация подписок на MQTT-брокер
     """
-    broker_subscribe()
+    conditioner_subscribe()
