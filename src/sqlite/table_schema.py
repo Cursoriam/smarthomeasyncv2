@@ -1,32 +1,23 @@
-# Возможна, реализация наследования
+from src.constants import BASE_TABLE_SCHEMA
 
-# В таблице TEMPERATURE_DATA хранятся показания температуры, полученные от датчиков.
-TEMPERATURE_TABLE_SCHEMA = """
-drop table if exists TEMPERATURE_DATA ;
-create table if not exists TEMPERATURE_DATA (
-    id integer primary key autoincrement,
-    Temperaure integer,
-    Date_n_Time text,
-    SensorId text
-);
-"""
 
-HUMIDITY_TABLE_SCHEMA = """
-drop table if exists HUMIDITY_DATA ;
-create table if not exists HUMIDIDTY_DATA (
+class BaseSchema:
+    schema: str = """
+    drop table if exists TEMPERATURE_DATA ;
+    create table if not exists TEMPERATURE_DATA (
     id integer primary key autoincrement,
-    Quantity real,
     Date_n_Time text,
-    SensorId text 
-);
-"""
+    SensorId text,
+    """
 
-CO2_TABLE_SCHEMA = """
-drop table if exists CO2_DATA ;
-create table if not exists CO2_DATA (
-    id integer primary key autoincrement,
-    Quantity real,
-    Date_n_Time text,
-    SensorId text
-);
-"""
+
+class TemperatureSchema(BaseSchema):
+    schema = super().schema + "Temperature integer );"
+
+
+class HumiditySchema(BaseSchema):
+    schema = super().schema + "Quantity real );"
+
+
+class C02Schema(BaseSchema):
+    schema = super().schema + "Quantity real );"
