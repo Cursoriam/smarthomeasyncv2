@@ -1,8 +1,7 @@
-from .store_data_into_sqlite import data_handler
-from .init_db import create_table
-from .table_schema import TemperatureSchema
-from .table_schema import HumiditySchema
-from .table_schema import C02Schema
+from .sqlite_commands import create_table
+from .utils import TableManager
+from .table_managers import temperature_table_manager
+from .table_managers import humidity_table_manager
+from .table_managers import co2_table_manager
 
-
-__all__ = ['data_handler', 'create_table', 'TemperatureSchema', 'HumiditySchema', 'C02Schema']
+__all__ = ['create_table', 'TableManager', 'temperature_table_manager', 'humidity_table_manager', 'co2_table_manager']
