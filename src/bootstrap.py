@@ -17,7 +17,7 @@ def init_subscriptions() -> None:
 
 
 def init_db_sqlite() -> None:
-    create_table(TemperatureSchema.schema)
-    create_table(HumiditySchema.schema)
-    create_table(C02Schema.schema)
+    create_table(TemperatureSchema.create_schema())
+    create_table(HumiditySchema.create_schema())
+    create_table(C02Schema.create_schema())
 
