@@ -4,7 +4,8 @@ from src.constants import QUANTITY_OF_BASE_ELEMENTS
 from src.sqlite.sqlite_commands import execute_command
 
 
-class TableManager:
+class SqliteTableManager:  # TODO: Сделать базовый класс TableManager, от которого будут наследоваться
+    # классы для конкретных баз данных
     name: str
     params: List[dict]
     data_parser: Callable
@@ -30,8 +31,12 @@ class TableManager:
     def add_param(self, param_name: str, param_type: str):
         self.params.append({"name": param_name, "type": param_type})
 
+    def get_command(self):
+        pass
 
-def handle_data(json_data: str, table_manager: TableManager):
+
+
+def handle_data(json_data: str, table_manager: SqliteTableManager):
     prepared_data = table_manager.data_parser(json_data)
     execute_command(table_manager.insert_command(), [prepared_data[key] for key in prepared_data])
     print("Insert " + table_manager.name + " in DB")

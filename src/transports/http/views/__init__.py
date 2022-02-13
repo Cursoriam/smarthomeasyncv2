@@ -1,3 +1,3 @@
-from .appliances import conditioner
+from .sensors import conditioner
 
 __all__ = ['conditioner']
