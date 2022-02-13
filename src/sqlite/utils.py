@@ -7,9 +7,11 @@ from src.sqlite.sqlite_commands import execute_command
 class TableManager:
     name: str
     params: List[dict]
+    data_parser: Callable
 
-    def __init__(self, name,):
+    def __init__(self, name, data_parser):
         self.name = name
+        self.data_parser = data_parser
 
     def create_base_schema(self):
         return """
@@ -29,7 +31,7 @@ class TableManager:
         self.params.append({"name": param_name, "type": param_type})
 
 
-def handle_data(json_data: str, table_manager: TableManager, parse_data: Callable):
-    parsed_data = parse_data(json_data) # TODO: Реализовать parse_data
-    execute_command(table_manager.insert_command(), [data for data in parsed_data])
+def handle_data(json_data: str, table_manager: TableManager):
+    prepared_data = table_manager.data_parser(json_data)
+    execute_command(table_manager.insert_command(), [prepared_data[key] for key in prepared_data])
     print("Insert " + table_manager.name + " in DB")
