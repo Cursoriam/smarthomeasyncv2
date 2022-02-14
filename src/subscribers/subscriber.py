@@ -3,7 +3,7 @@ from typing import Any
 
 import paho.mqtt.client as mqttc
 
-from src.sqlite import handle_data
+from src.sqlite import handle_inserted_data
 
 
 def on_connect(client: mqttc, userdata: Any, flags: Any, rc: int) -> None:
@@ -34,7 +34,7 @@ def on_message(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:
     print("MQTT Data Received...")
     print("MQTT Topic: " + msg.topic)
     print("Data" + str(msg.payload))
-    handle_data(msg.payload, userdata["table_manager"])
+    handle_inserted_data(msg.payload, userdata["table_manager"])
 
 
 def assign_callbacks_to_client(client: mqttc) -> None:

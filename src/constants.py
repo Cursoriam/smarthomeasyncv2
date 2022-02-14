@@ -15,12 +15,9 @@ TEMPERATURE_TABLE_NAME = "TEMPERATURE_DATA"
 HUMIDITY_TABLE_NAME = "HUMIDITY_DATA"
 CO2_TABLE_NAME = "CO2_DATA"
 
-# Либо прописывать сразу, либо вызывать по одному. Так или иначе от дублирования не избавиться
-TEMPERATURE_PARAMS = [{"name": 'Temperature', "type": 'integer'},
-                      ]
-
-HUMIDITY_PARAMS = [{"name": 'Quantity', "type": 'real'},
-                   ]
-
-CO2_PARAMS = [{"name": 'Quantity', "type": 'real'}]
+TEMPERATURE_TABLE_PARAMS = [{"name": 'Temperature', "type": 'integer'},
+                            ]
+HUMIDITY_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'},
+                         ]
+CO2_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}]
 

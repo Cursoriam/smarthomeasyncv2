@@ -1,4 +1,4 @@
-from get_temperature_sensors import get_temperature_sensors
+from get_temperature_data import get_temperature_data
 
 
-__all__ = ['get_temperature_sensors', ]
+__all__ = ['get_temperature_data', ]
