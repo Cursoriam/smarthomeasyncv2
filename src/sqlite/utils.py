@@ -1,7 +1,7 @@
-from typing import List, Callable, Dict
+from typing import List, Callable, Dict, Tuple
 
 from src.constants import QUANTITY_OF_BASE_ELEMENTS
-from src.sqlite.sqlite_commands import execute_single_command
+from .db_managers import DBManager
 
 
 class TableManager:
@@ -43,17 +43,17 @@ class SqliteTableManager(TableManager):
 
     def create_base_command(self):
         return """
-            drop table if exists""" + self.name + """;
-            create table if not exists""" + self.name + """ (
+            drop table if exists """ + self.name + """;
+            create table if not exists """ + self.name + """ (
             id integer primary key autoincrement,
             Date_n_Time text,
             SensorId text,
             """ + ', '.join([f'{param["name"]} {param["type"]}' for param in self.params]) + " );"
 
     def create_insert_command(self):
-        return "insert into " + self.name + " " + "(Date_n_Time, SensorId," + \
+        return "INSERT INTO " + self.name + "(Date_n_Time, SensorId, " + \
                ', '.join([f'{param["name"]}' for param in self.params]) + ") " +\
-               "values (" + ','.join(['?' for i in range(QUANTITY_OF_BASE_ELEMENTS+len(self.params))]) + ")"
+               "VALUES(" + ','.join(['?' for i in range(QUANTITY_OF_BASE_ELEMENTS+len(self.params))]) + ")"
 
     def extract_command(self, sensor_id: str):
         return "SELECT * FROM " + self.name + " WHERE SensorId=" + sensor_id + " ORDER BY Date_n_Time DESC LIMIT 1"
@@ -62,12 +62,16 @@ class SqliteTableManager(TableManager):
         return "SELECT * FROM " + self.name
 
 
-def handle_inserted_data(json_data: str, table_manager: SqliteTableManager):
+def handle_inserted_data(json_data: str, table_manager: SqliteTableManager, db_manager: DBManager):
     prepared_data = table_manager.data_parser(json_data)
-    execute_single_command(table_manager.create_insert_command(), [prepared_data[key] for key in prepared_data])
-    print("Insert " + table_manager.name + " in DB")
+    try:
+        db_manager.execute_single_command(table_manager.create_insert_command(),
+                                          [prepared_data[key] for key in prepared_data])
+    except Exception as err:
+        print(str(err))
 
 
-def handle_extracted_data(table_manager: TableManager, handled_data: list):
-    records_data = [{"date_n_time": handled_data[1], "sensor_id": handled_data[2]}.update({param["name"]: record
-                    for param in table_manager.params for record in handled_data[3:]})]  # тут возможен говняк сотоны
+def handle_extracted_data(table_manager: TableManager, handled_data: Tuple):
+    records_data = {"date_n_time": handled_data[1], "sensor_id": handled_data[2]}
+    records_data.update({param["name"]: record for param in table_manager.params for record in handled_data[3:]})
+    return records_data

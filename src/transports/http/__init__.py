@@ -1,3 +1,3 @@
-from .views import conditioner
+from .views import sensors
 
-__all__ = ['conditioner']
+__all__ = ['sensors']

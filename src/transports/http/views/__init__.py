@@ -1,3 +1,3 @@
-from .sensors import conditioner
+from .sensors import get_temperature_data
 
-__all__ = ['conditioner']
+__all__ = ['get_temperature_data']

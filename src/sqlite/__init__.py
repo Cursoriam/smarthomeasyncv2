@@ -1,11 +1,11 @@
-from .sqlite_commands import execute_multiple_commands
-from .sqlite_commands import execute_single_command
+from .db_managers import DBManager
 from .utils import TableManager
 from .utils import handle_inserted_data
 from .utils import handle_extracted_data
-from .table_managers import temperature_table_manager
-from .table_managers import humidity_table_manager
-from .table_managers import co2_table_manager
+from .managers import temperature_table_manager
+from .managers import humidity_table_manager
+from .managers import co2_table_manager
+from .managers import db_manager
 
-__all__ = ['execute_single_command', 'execute_multiple_commands', 'TableManager', 'temperature_table_manager',
-           'humidity_table_manager', 'co2_table_manager', 'handle_inserted_data', 'handle_extracted_data', ]
+__all__ = ['DBManager', 'TableManager', 'temperature_table_manager', 'humidity_table_manager',
+           'co2_table_manager', 'handle_inserted_data', 'handle_extracted_data', 'db_manager', ]

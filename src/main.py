@@ -3,7 +3,7 @@ import os
 from aiohttp import web
 
 from src.bootstrap import init_subscriptions
-from src.bootstrap import init_db_sqlite
+from src.bootstrap import init_db
 from src.transports import setup_routes
 
 
@@ -17,7 +17,7 @@ async def init() -> web.Application:
     """
     app = web.Application()
     setup_routes(app)
-    init_db_sqlite()
+    init_db()
     init_subscriptions()
     return app
 
