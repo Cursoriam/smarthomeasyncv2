@@ -1,10 +1,12 @@
 # pylint: disable=W0613, C0103
 from typing import Any
+from typing import Callable
 
 import paho.mqtt.client as mqttc
 
 from src.sqlite import handle_inserted_data
 from src.sqlite import db_manager
+
 
 def on_connect(client: mqttc, userdata: Any, flags: Any, rc: int) -> None:
     """
@@ -18,11 +20,11 @@ def on_connect(client: mqttc, userdata: Any, flags: Any, rc: int) -> None:
         print("Connected OK")
         client.subscribe(userdata["mqtt_topic"])
     else:
-        print("Bad connection, RC = ", rc)  # raise exceptions instead of print
+        print("Bad connection, RC = ", rc)
 
 
 # Save Data into DB Table
-def on_message(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:
+def on_message_for_db(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:
     """
     Коллбэк получения сообщения
     :param client:
@@ -34,21 +36,18 @@ def on_message(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:
     handle_inserted_data(msg.payload, userdata["table_manager"], db_manager)
 
 
-def assign_callbacks_to_client(client: mqttc) -> None:
-    """
-    Метод добавления коллбэков клиенту
-    :param client:
-    """
-    client.on_connect = on_connect
-    client.on_message = on_message
+def on_message_default(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:
+    print("Data received: " + msg.payload.decode("utf-8"))
 
 
-def broker_subscribe(mqtt_broker: str, mqtt_port: int, client_name: str, userdata: dict) -> None:
+def broker_subscribe(mqtt_broker: str, mqtt_port: int, client_name: str, userdata: dict,
+                     on_message_callback: Callable) -> None:
     """
-    Метод подписки на топик кондиционера
+    Метод подписки на топик
     """
     sub_client = mqttc.Client(client_id=client_name, userdata=userdata)
     if not sub_client.is_connected():
         sub_client.connect_async(mqtt_broker, mqtt_port)
-        assign_callbacks_to_client(sub_client)
+        sub_client.on_connect = on_connect
+        sub_client.on_message = on_message_callback
         sub_client.loop_start()

@@ -1,4 +1,6 @@
 # MQTT Settings
+import os
+
 MQTT_BROKER = "test.mosquitto.org"
 MQTT_PORT = 1883
 KEEP_ALIVE_INTERVAL = 45
@@ -15,9 +17,15 @@ TEMPERATURE_TABLE_NAME = "TEMPERATURE_DATA"
 HUMIDITY_TABLE_NAME = "HUMIDITY_DATA"
 CO2_TABLE_NAME = "CO2_DATA"
 
-TEMPERATURE_TABLE_PARAMS = [{"name": 'Temperature', "type": 'integer'},
-                            ]
-HUMIDITY_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'},
-                         ]
+TEMPERATURE_TABLE_PARAMS = [{"name": 'Temperature', "type": 'integer'}, ]
+HUMIDITY_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}, ]
 CO2_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}]
 
+
+# JWT
+JWT_SECRET = os.getenv('JWT_SECRET', 'mariya52')
+JWT_ALGORITHM = 'HS256'
+JWT_EXP_DELTA_MINUTES = 60
+
+# Users Data
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'mariya52') + JWT_SECRET
