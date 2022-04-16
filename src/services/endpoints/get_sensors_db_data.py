@@ -6,7 +6,7 @@ from src.sqlite import TableManager
 from src.sqlite import handle_extracted_data
 
 
-async def get_sensors_data_from_db(sensor_id: str, table_manager: TableManager, db_manager: DBManager) -> List:
+async def get_sensors_data_from_db(sensor_id: str, table_manager: TableManager, db_manager: DBManager, limit: int) -> List:
     """
     Извлечение данных кондиционера из базы данных
     :param sensor_id:
@@ -15,10 +15,10 @@ async def get_sensors_data_from_db(sensor_id: str, table_manager: TableManager, 
 
     records = []
     try:
-        records = db_manager.execute_single_command(table_manager.extract_command(sensor_id)).fetchall()
+        records = db_manager.execute_single_command(table_manager.extract_command(sensor_id, limit)).fetchall()
     except Exception as err:
         print(err)
     records_data = []
     if len(records):
-        records_data = handle_extracted_data(table_manager, records[0])
+        records_data = handle_extracted_data(table_manager, records)
     return records_data

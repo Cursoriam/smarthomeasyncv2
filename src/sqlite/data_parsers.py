@@ -11,6 +11,6 @@ def humidity_data_parser(json_data: str):
     return data
 
 
-def co2_data_parser(json_data: str):
+def heat_data_parser(json_data: str):
     data = json.loads(json_data)
     return data

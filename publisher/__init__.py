@@ -12,7 +12,7 @@ MQTT_PORT = 1883
 KEEP_ALIVE_INTERVAL = 45
 MQTT_TEMPERATURE_TOPIC = "Classroom/Temperature_Sensors"
 MQTT_HUMIDITY_TOPIC = "Classroom/Humidity_Sensors"
-MQTT_CO2_TOPIC = "Classroom/CO2_Sensors"
+MQTT_HEAT_TOPIC = "Classroom/Heat_Sensors"
 
 MODES = ['Easy', 'Normal', 'Hard']
 
@@ -64,8 +64,8 @@ def publish_fake_sensor_values_to_mqtt():
         publish_to_topic(MQTT_HUMIDITY_TOPIC, prepare_data_to_publish({"Quantity": random.randrange(1, 99)}))
         toggle = random.choice([0, 2])
     elif toggle == 2:
-        print("Publishing fake co2 Value")
-        publish_to_topic(MQTT_CO2_TOPIC, prepare_data_to_publish({"Quantity": random.randrange(1, 99)}))
+        print("Publishing fake heat Value")
+        publish_to_topic(MQTT_HEAT_TOPIC, prepare_data_to_publish({"Quantity": random.randrange(1, 99)}))
         toggle = random.randrange(0, 2)
 
 

@@ -15,11 +15,11 @@ QUANTITY_OF_BASE_ELEMENTS = 2
 
 TEMPERATURE_TABLE_NAME = "TEMPERATURE_DATA"
 HUMIDITY_TABLE_NAME = "HUMIDITY_DATA"
-CO2_TABLE_NAME = "CO2_DATA"
+HEAT_TABLE_NAME = "HEAT_DATA"
 
 TEMPERATURE_TABLE_PARAMS = [{"name": 'Temperature', "type": 'integer'}, ]
 HUMIDITY_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}, ]
-CO2_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}]
+HEAT_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}]
 
 
 # JWT
