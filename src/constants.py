@@ -6,7 +6,8 @@ MQTT_PORT = 1883
 KEEP_ALIVE_INTERVAL = 45
 
 # Database params
-DB_NAME = "SensorsData.db"
+SENSORS_DATA_DB_NAME = "SensorsData.db"
+
 
 FIRST_KEY = "name"
 SECOND_KEY = "type"
@@ -21,6 +22,11 @@ TEMPERATURE_TABLE_PARAMS = [{"name": 'Temperature', "type": 'integer'}, ]
 HUMIDITY_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}, ]
 HEAT_TABLE_PARAMS = [{"name": 'Quantity', "type": 'real'}]
 
+
+# Recuperator params
+RECUPERATOR_DB_NAME = "RecuperatorData.db"
+RECUPERATOR_SCHEDULE_TABLE_NAME = "RECUPERATOR_SCHEDULE"
+RECUPERATOR_SCHEDULE_TABLE_PARAMS = [{"name": '', "type": ''}]
 
 # JWT
 JWT_SECRET = os.getenv('JWT_SECRET', 'mariya52')

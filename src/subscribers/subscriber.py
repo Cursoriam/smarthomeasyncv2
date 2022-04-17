@@ -5,7 +5,7 @@ from typing import Callable
 import paho.mqtt.client as mqttc
 
 from src.sqlite import handle_inserted_data
-from src.sqlite import db_manager
+from src.sqlite import sensors_data_db_manager
 
 
 def on_connect(client: mqttc, userdata: Any, flags: Any, rc: int) -> None:
@@ -33,7 +33,7 @@ def on_message_for_db(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> N
     """
     # This is the Master Call for saving MQTT Data into DB
     # For details of "sensor_Data_Handler" function please refer "sensor_data_to_db.py"
-    handle_inserted_data(msg.payload, userdata["table_manager"], db_manager)
+    handle_inserted_data(msg.payload, userdata["table_manager"], sensors_data_db_manager)
 
 
 def on_message_default(client: mqttc, userdata: Any, msg: mqttc.MQTTMessage) -> None:

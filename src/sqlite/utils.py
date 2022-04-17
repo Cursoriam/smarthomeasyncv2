@@ -31,7 +31,7 @@ class TableManager:
         pass
 
 
-class SqliteTableManager(TableManager):
+class SqliteSensorsTableManager(TableManager):
     name: str
     params: List[Dict[str, str]]
     data_parser: Callable
@@ -63,7 +63,35 @@ class SqliteTableManager(TableManager):
         return "SELECT * FROM " + self.name
 
 
-def handle_inserted_data(json_data: str, table_manager: SqliteTableManager, db_manager: DBManager):
+class SqliteRecuperatorTableManager(TableManager):
+    def __init__(self, name, params, data_parser):
+        super().__init__(name, params, data_parser)
+
+    def create_base_command(self):
+        return """
+            drop table if exists """ + self.name + """;
+            create table if not exists """ + self.name + """(
+            id integer primary key autoincrement,
+            Start_Time text,
+            End_Time text,
+            Temperature integer
+            );
+        """
+
+    def create_insert_command(self):
+        return "INSERT INTO " + self.name + "(Start_Time, End_Time, Temperature) VALUES(?,?,?)"
+
+    def create_extract_all_command(self):
+        return "SELECT * FROM " + self.name
+
+    def create_delete_command(self):
+        return "DELETE FROM " + self.name + " WHERE id=?"
+
+    def create_update_command(self):
+        return "UPDATE " + self.name + " set Start_Time=?, End_Time=?, Temperature=? WHERE id=?"
+
+
+def handle_inserted_data(json_data: str, table_manager: SqliteSensorsTableManager, db_manager: DBManager):
     prepared_data = table_manager.data_parser(json_data)
     try:
         db_manager.execute_single_command(table_manager.create_insert_command(),

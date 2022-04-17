@@ -3,7 +3,7 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
-from src.constants import DB_NAME
+from src.constants import SENSORS_DATA_DB_NAME
 
 
 class DBManager:
@@ -18,8 +18,8 @@ class DBManager:
 class Sqlite3DBManager(DBManager):
     connection: sqlite3.Connection
 
-    def __init__(self):
-        self.connection = sqlite3.connect(DB_NAME, check_same_thread=False)
+    def __init__(self, db_name):
+        self.connection = sqlite3.connect(db_name, check_same_thread=False)
 
     def __del__(self):
         self.connection.cursor().close()
