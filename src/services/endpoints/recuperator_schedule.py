@@ -1,4 +1,6 @@
 # TODO: Refactor
+import json
+
 from aiohttp import web
 from src.sqlite import recuperator_schedule_manager
 from src.sqlite import recuperator_data_db_manager
@@ -6,19 +8,22 @@ from src.sqlite import recuperator_data_db_manager
 
 async def add_or_update_recuperator_schedule(request: web.Request):
     request_data = await request.json()
-    for data in request_data['data']:
-        if data['schedule_status'] == "delete":
-            for schedule in data['schedules']:
-                schedules_to_delete = [schedule['id']]
-                recuperator_data_db_manager.execute_single_command(recuperator_schedule_manager.create_delete_command(),
-                                                                   schedules_to_delete)
-        elif data['schedule_status'] == "add":
-            for schedule in data['schedules']:
-                schedule_to_add = [schedule['start_time'], schedule['end_time'], schedule['temperature']]
-                recuperator_data_db_manager.execute_single_command(recuperator_schedule_manager.create_insert_command(),
-                                                                   schedule_to_add)
-        elif data['schedule_status'] == "update":
-            for schedule in data['schedules']:
-                schedule_to_update = [schedule['start_time'], schedule['end_time'], schedule['temperature'], schedule['id']]
-                recuperator_data_db_manager.execute_single_command(recuperator_schedule_manager.create_update_command(),
-                                                                   schedule_to_update)
+    if request_data['schedule_status'] == "delete":
+        schedules_to_delete = [request_data['id']]
+        recuperator_data_db_manager.execute_single_command(recuperator_schedule_manager.create_delete_command(),
+                                                           schedules_to_delete)
+    elif request_data['schedule_status'] == "add":
+        schedule_to_add = [request_data['start_time'], request_data['end_time'], request_data['temperature']]
+        recuperator_data_db_manager.execute_single_command(recuperator_schedule_manager.create_insert_command(),
+                                                           schedule_to_add)
+
+
+async def get_recuperator_schedule_from_db(request: web.Request):
+    records = []
+    try:
+        records = recuperator_data_db_manager.execute_single_command(recuperator_schedule_manager.
+                                                                     create_extract_all_command())
+    except Exception as err:
+        print(err)
+    data = [{"start_time": data[1], "end_time": data[2], "temperature": data[3]} for data in records.fetchall()]
+    return data

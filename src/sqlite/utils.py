@@ -85,10 +85,7 @@ class SqliteRecuperatorTableManager(TableManager):
         return "SELECT * FROM " + self.name
 
     def create_delete_command(self):
-        return "DELETE FROM " + self.name + " WHERE id=?"
-
-    def create_update_command(self):
-        return "UPDATE " + self.name + " set Start_Time=?, End_Time=?, Temperature=? WHERE id=?"
+        return "DELETE FROM " + self.name + " WHERE rowid=?"
 
 
 def handle_inserted_data(json_data: str, table_manager: SqliteSensorsTableManager, db_manager: DBManager):
