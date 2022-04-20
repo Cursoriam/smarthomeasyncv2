@@ -25,5 +25,6 @@ async def get_recuperator_schedule_from_db(request: web.Request):
                                                                      create_extract_all_command())
     except Exception as err:
         print(err)
-    data = [{"start_time": data[1], "end_time": data[2], "temperature": data[3]} for data in records.fetchall()]
+    data = [{"id": data[0], "start_time": data[1], "end_time": data[2],
+             "temperature": data[3]} for data in records.fetchall()]
     return data
