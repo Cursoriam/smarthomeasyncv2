@@ -23,7 +23,8 @@ temperature_table_manager = sensors_data_table_manager(name=TEMPERATURE_TABLE_NA
                                                        data_parser=temperature_data_parser)
 humidity_table_manager = sensors_data_table_manager(name=HUMIDITY_TABLE_NAME, params=HUMIDITY_TABLE_PARAMS,
                                                     data_parser=humidity_data_parser)
-heat_table_manager = sensors_data_table_manager(name=HEAT_TABLE_NAME, params=HEAT_TABLE_PARAMS, data_parser=heat_data_parser)
+heat_table_manager = sensors_data_table_manager(name=HEAT_TABLE_NAME, params=HEAT_TABLE_PARAMS,
+                                                data_parser=heat_data_parser)
 
 recuperator_data_db_manager = Sqlite3DBManager(RECUPERATOR_DB_NAME)
 recuperator_data_table_manager = SqliteRecuperatorTableManager
