@@ -30,6 +30,9 @@ class TableManager:
     def create_extract_all_command(self) -> str:
         pass
 
+    def create_delete_command(self) -> str:
+        pass
+
 
 class SqliteSensorsTableManager(TableManager):
     name: str
@@ -60,6 +63,9 @@ class SqliteSensorsTableManager(TableManager):
                str(limit)
 
     def create_extract_all_command(self):
+        return "SELECT * FROM " + self.name
+
+    def create_delete_command(self) -> str:
         return "SELECT * FROM " + self.name
 
 
