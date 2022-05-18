@@ -18,7 +18,6 @@ async def init() -> web.Application:
     :return: web.Application
     """
     app = web.Application(middlewares=MIDDLEWARES)
-    create_admin()
     setup_routes(app)
     init_db()
     init_subscriptions()

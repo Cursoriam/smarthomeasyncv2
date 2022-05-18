@@ -28,6 +28,9 @@ def on_connect(mqttc: mqtt, userdata: Any, flags: Any, rc: int):
 def on_disconnect(mqttc: mqtt, userdata: Any, flags: Any, rc: int):
     if rc != 0:
         pass
+        print("Unable to disconnect to MQTT Broker...")
+    else:
+        print("Disconnected from MQTT Broker: " + str(MQTT_BROKER))
 
 
 mqttc = mqtt.Client()
@@ -57,15 +60,16 @@ def publish_fake_sensor_values_to_mqtt():
     global toggle
     if toggle == 0:
         print("Publishing fake Temperature Value")
-        publish_to_topic(MQTT_TEMPERATURE_TOPIC, prepare_data_to_publish({"Temperature": random.randrange(-50, 50)}))
+        publish_to_topic(MQTT_TEMPERATURE_TOPIC, prepare_data_to_publish({"Temperature": random.randrange(15, 30)}))
         toggle = random.randrange(1, 3)
     elif toggle == 1:
         print("Publishing fake humidity Value")
-        publish_to_topic(MQTT_HUMIDITY_TOPIC, prepare_data_to_publish({"Quantity": random.randrange(1, 99)}))
+        publish_to_topic(MQTT_HUMIDITY_TOPIC, prepare_data_to_publish({"Quantity": random.randrange(40, 70)}))
         toggle = random.choice([0, 2])
     elif toggle == 2:
         print("Publishing fake heat Value")
-        publish_to_topic(MQTT_HEAT_TOPIC, prepare_data_to_publish({"Quantity": random.randrange(1, 99)}))
+        publish_to_topic(MQTT_HEAT_TOPIC, prepare_data_to_publish({"Quantity": random.randint(0,
+                                                                   int((2.0 - 0.3) / 0.1)) * 0.1 + 0.3}))
         toggle = random.randrange(0, 2)
 
 

@@ -3,8 +3,6 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
-from src.constants import SENSORS_DATA_DB_NAME
-
 
 class DBManager:
 
